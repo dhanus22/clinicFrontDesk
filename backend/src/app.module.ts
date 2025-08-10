@@ -9,6 +9,8 @@ import { UsersService } from './users/users.service';
 import { QueueModule } from './queue/queue.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { DoctorModule } from './doctor/doctor.module';
+import * as dotenv from 'dotenv';
+dotenv.config(); 
 
 @Module({
   imports: [
