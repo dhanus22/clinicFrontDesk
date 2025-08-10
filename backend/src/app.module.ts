@@ -8,28 +8,26 @@ import { AuthModule } from './auth/auth.module';
 import { UsersService } from './users/users.service';
 import { QueueModule } from './queue/queue.module';
 import { AppointmentModule } from './appointment/appointment.module';
-import { DoctorController } from './doctor/doctor.controller';
-import { DoctorService } from './doctor/doctor.service';
 import { DoctorModule } from './doctor/doctor.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '127.0.0.1',
-      port: 3309,
-      username: 'root',
-      password: 'saidhanu31',
-      database: 'clinic_db',
+      host: process.env.DB_HOST || 'localhost',
+      port: parseInt(process.env.DB_PORT || '3306', 10),
+      username: process.env.DB_USER || 'root',
+      password: process.env.DB_PASS || '',
+      database: process.env.DB_NAME || 'clinic_db',
       entities: [User, Doctor, Appointment, Queue],
-      synchronize: true,
+      synchronize: true, // Keep true only during development
       logging: true,
     }),
     TypeOrmModule.forFeature([User, Doctor, Appointment, Queue]),
     AuthModule,
     QueueModule,
     AppointmentModule,
-    DoctorModule
+    DoctorModule,
   ],
   providers: [UsersService],
 })
